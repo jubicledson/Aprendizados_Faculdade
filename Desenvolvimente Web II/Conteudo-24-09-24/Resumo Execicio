@@ -1,0 +1,159 @@
+Table of Contents
+1. Administração de banco de dados
+2. Try/Catch
+2.1. Exercício
+2.2. Novas exceções
+2.3. Exercício
+3. Banco de Dados
+3.1. Conexão
+3.2. Métodos mais comuns
+3.3. Executar instrução SQL
+3.4. Exercício
+3.5. Usando o retorno
+3.6. Exercício
+3.7. Preparando e executando
+3.8. Exercício
+3.9. Fechando a conexão
+3.10. Resumo
+1. Administração de banco de dados
+O phpMyAdmin é uma ferramenta que permite a administração de bancos de dados de forma visual.
+
+Para acessá-lo, após iniciar os serviços Apache e Banco de Dados, use: http:/localhost/phpmyadmin
+
+///////////////////////////////////////////////////////////////////////////////////////////////////
+
+2. Try/Catch
+Usamos dois blocos try/catch para preparar o código para possíveis exceções. O bloco em try é executado e nele pode existir código com possibilidade de exceção. No bloco catch fica o que fazer caso aconteça a exceção.
+
+<?php
+try {
+    $numero1 = 10;
+    $numero2 = 0;
+    $resultado = $numero1 / $numero2;
+    echo "O resultado da divisão é: " . $resultado;
+} catch (Exception $excecao) {
+    echo "Erro: " . $excecao->getMessage();
+}
+Exception é uma classe geral de erros, ela possui filhas e podemos buscar primeiro as filhas e pegar também a geral se a exceção for diferente das filhas listadas:
+
+<?php
+try {
+    $numero1 = 10;
+    $numero2 = 0;
+    $resultado = $numero1 / $numero2;
+    echo "O resultado da divisão é: " . $resultado;
+} catch (DivisionByZeroError $divisaoErrada) {
+    echo "Erro na divisão: " . $divisaoErrada->getMessage();
+} catch (Exception $excecao) {
+    echo "Erro: " . $excecao->getMessage();
+} 
+Mais tipos de exceção: aqui. A ordem dos catch é importante, as exceções mais genéricas devem ficar por último.
+
+///////////////////////////////////////////////////////////////////////////////////////////////////
+
+2.1. Exercício
+Troque a ordem dos catch no código anterior, o que acontece?
+
+///////////////////////////////////////////////////////////////////////////////////////////////////
+
+2.2. Novas exceções
+Podemos criar nossas próprias exceções com objetos:
+
+class MinhaExcecao extends Exception {
+    // Construtor personalizado (opcional)
+    public function __construct($mensagem = "", $codigo = 0, Throwable $anterior = null) {
+	parent::__construct($mensagem, $codigo, $anterior);
+    }
+}
+$mensagem: A mensagem de erro a ser exibida.
+$codigo: Um código numérico que pode ser usado para identificar o tipo de exceção.
+$anterior: Uma exceção anterior que causou esta exceção.
+Podemos usar a nova exceção:
+
+try {
+    // Algum código que pode gerar uma exceção
+    if ($idade < 18) {
+	throw new MinhaExcecao("Você deve ter mais de 18 anos.");
+    }
+} catch (MinhaExcecao $e) {
+    echo "Erro: " . $e->getMessage();
+}
+
+///////////////////////////////////////////////////////////////////////////////////////////////////
+
+2.3. Exercício
+Crie um script PHP que permita ao usuário inserir dois números e realizar as quatro operações básicas (adição, subtração, multiplicação e divisão). Utilize try-catch para tratar as seguintes exceções:
+Divisão por zero: Exibir uma mensagem amigável informando o erro.
+Entrada de dados inválidos: Verificar se os valores inseridos são números e, caso contrário, lançar uma exceção personalizada.
+Outras exceções: Capturar qualquer outra exceção que possa ocorrer e exibir uma mensagem genérica.
+
+///////////////////////////////////////////////////////////////////////////////////////////////////
+
+3. Banco de Dados
+Acessar bancos de dados é uma tarefa fundamental para a maioria das aplicações web.
+
+mysqli
+A extensão mysqli permite a você acessar a funcionalidade provida pelo MySQL.
+PDO
+A extensão PHP Data Objects (PDO) define uma interface leve e consistente para acessar vários bancos de dados no PHP.
+Vamos trabalhar com o mais novo apenas: PDO.
+
+3.1. Conexão
+
+///////////////////////////////////////////////////////////////////////////////////////////////////
+
+Para criar um novo objeto PDO para gerenciar a conexão com o banco de dados usamos:
+
+<?php
+$dsn = "mysql:host=seu_servidor;dbname=seu_banco_de_dados";
+$user = "seu_usuario";
+$password = "sua_senha";
+
+try {
+    $conexao = new PDO($dsn, $user, $password);
+} catch (PDOException $excecao) {
+    echo "Erro de conexão: " . $excecao->getMessage();
+}
+?>
+seu_servidor
+url onde o banco de dados está. Exemplo: localhost.
+seu_banco_de_dados
+nome do banco de dados.
+seu_usuario
+o usuário que executará os comandos. Exemplo: root.
+sua_senha
+a senha do usuário. Usando XAMPP deixe vazio: '';
+Se tudo der certo, $conexao guarda o objeto onde serão executado os métodos no banco:
+
+///////////////////////////////////////////////////////////////////////////////////////////////////
+
+3.2. Métodos mais comuns
+$conexao->exec()
+$conexao->query()
+$conexao->prepare()
+$conexao->execute()
+$conexao->fetch()
+$conexao->fetchAll()
+$conexao->close()
+
+///////////////////////////////////////////////////////////////////////////////////////////////////
+
+3.3. Executar instrução SQL
+Usamos $conexao->exec() para executar instruções SQL que não retornam um conjunto de resultados, como INSERT, UPDATE, DELETE, etc.
+
+$conexao->exec("DELETE FROM usuarios WHERE id = 1");
+Retorna um objeto PDOStatement ou false se o comando falhar.
+
+$resultado = $conexao->exec("DELETE FROM usuarios WHERE id = 1");
+
+if($resultado) {
+  echo "Usuário apagado!";
+} else {
+  echo "Erro ao apagar usuário";
+}
+
+///////////////////////////////////////////////////////////////////////////////////////////////////
+
+3.4. Exercício
+Usando phpmyadmin crie o banco aula6 e a tabela usuarios.
+Crie um formulário para receber o nome do usuário e uma página PHP para inserir nome recebido na tabela usuarios. Informe se o comando foi bem sucedido ou não.
