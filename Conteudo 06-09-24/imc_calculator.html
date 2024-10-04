@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Calculadora de IMC</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f4;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+        }
+
+        .container {
+            background-color: #fff;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            width: 300px;
+            text-align: center;
+        }
+
+        h1 {
+            font-size: 24px;
+            margin-bottom: 20px;
+        }
+
+        input {
+            width: 100%;
+            padding: 10px;
+            margin: 10px 0;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            font-size: 16px;
+        }
+
+        button {
+            width: 100%;
+            padding: 10px;
+            background-color: #007bff;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            font-size: 16px;
+            cursor: pointer;
+        }
+
+        button:hover {
+            background-color: #0056b3;
+        }
+
+        #resultado {
+            margin-top: 20px;
+            font-size: 16px;
+        }
+
+        .erro {
+            color: red;
+        }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <h1>Calculadora de IMC</h1>
+    <input type="number" id="peso" placeholder="Digite seu peso (kg)" min="1" step="0.1" required>
+    <input type="number" id="altura" placeholder="Digite sua altura (m)" min="0.1" step="0.01" required>
+    <button onclick="calcularIMC()">Calcular IMC</button>
+
+    <div id="resultado"></div>
+</div>
+
+<script>
+    function calcularIMC() {
+        // Obter os valores de peso e altura dos campos de entrada
+        const peso = document.getElementById('peso').value;
+        const altura = document.getElementById('altura').value;
+
+        // Verificar se os valores estão preenchidos
+        if (!peso || !altura) {
+            document.getElementById('resultado').innerHTML = '<p class="erro">Por favor, preencha ambos os campos!</p>';
+            return;
+        }
+
+        // URL da API (substitua 'localhost' pelo domínio correto onde sua API está rodando)
+        const url = `http://localhost//Topicos%20avançados/Conteudo%2006-09-24/imc_api.php?peso=${peso}&altura=${altura}`;
+
+        // Fazer a chamada para a API usando fetch
+        fetch(url)
+            .then(response => response.json())
+            .then(data => {
+                if (data.erro) {
+                    document.getElementById('resultado').innerHTML = `<p class="erro">${data.erro}</p>`;
+                } else {
+                    document.getElementById('resultado').innerHTML = `
+                        <p>Seu IMC: <strong>${data.imc}</strong></p>
+                        <p>Classificação: <strong>${data.classificacao}</strong></p>
+                        <p>Peso ideal para IMC de 24,9: <strong>${data.peso_ideal} kg</strong></p>
+                        <p>Você precisa <strong>${data.acao}</strong> <strong>${Math.abs(data.diferenca_peso)} kg</strong> para atingir o peso ideal.</p>
+                    `;
+                }
+            })
+            .catch(error => {
+                document.getElementById('resultado').innerHTML = `<p class="erro">Erro ao conectar-se à API.</p>`;
+                console.error('Erro:', error);
+            });
+    }
+</script>
+
+</body>
+</html>
