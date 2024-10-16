@@ -52,7 +52,8 @@
                                             <td><p class="card-text">'.$linha['editoraLivro'].'</p></td>
                                             <td><p class="card-text">'.$linha['dataPubLivro'].'</p></td>
                                             <td><p class="card-text">'.$linha['isbnLivro'].'</p></td>
-                                            <td><a href="http://localhost/Aula/Conteudo_08_10_24/Livro/DeletaIdLivro.php?idLivro='.$linha['idLivro'].'"> Deletar </a></td>
+                                            <td><a href="http://localhost/desenvolvimento%20web%202/Conteudo%2016-10-24/Livro/DeletaIdLivro.php?idLivro='.$linha['idLivro'].'"> Deletar </a></td>
+                                            <td><a href="http://localhost/desenvolvimento%20web%202/Conteudo%2016-10-24/Livro/EditaIdLivro.php?idLivro='.$linha['idLivro'].'"> Editar </a></td>
                                         <tr>
                                     
                             ';
@@ -94,7 +95,8 @@
                                             <td><p class="card-text">'.$linha['editoraLivro'].'</p></td>
                                             <td><p class="card-text">'.$linha['dataPubLivro'].'</p></td>
                                             <td><p class="card-text">'.$linha['isbnLivro'].'</p></td>
-                                            <td><a href="http://localhost/Aula/Conteudo_08_10_24/Livro/DeletaIdLivro.php?idLivro='.$linha['idLivro'].'"> Deletar </a></td>
+                                            <td><a href="http://localhost/desenvolvimento%20web%202/Conteudo%2016-10-24/Livro/DeletaIdLivro.php?idLivro='.$linha['idLivro'].'"> Deletar </a></td>
+                                            <td><a href="http://localhost/desenvolvimento%20web%202/Conteudo%2016-10-24/Livro/EditaIdLivro.php?idLivro='.$linha['idLivro'].'"> Editar </a></td>
                                         <tr>
                                     </table>
                                 ';

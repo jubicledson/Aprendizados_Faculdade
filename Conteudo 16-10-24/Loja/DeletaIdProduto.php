@@ -13,7 +13,7 @@
         include '../ConexaoSql.php';
 
         $id = $_GET['idProduto'];
-        $comandoSql = "SELECT * FROM `tbllivro` WHERE `idLivro` = $id";  
+        $comandoSql = "DELETE FROM tblproduto WHERE `tblproduto`.`idproduto` = $id";  
         
         try{
             

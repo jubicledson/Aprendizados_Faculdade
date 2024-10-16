@@ -2,18 +2,16 @@
         include '../ConexaoSql.php';
 
         $id = $_GET['idLivro'];
-        $nome = $_GET['nomeLivro'];
-        $pontos = $_GET['pontosLivro'];
+        $nome = $_GET['tituloLivro'];
+        $pontos = $_GET['idiomaLivro'];
 
-        $codigoSql = "UPDATE `tbllivro` SET `tituloLivro` = :nm, `idiomaLivro` = :idi, `qntPagLivro` = :qnt, `editoraLivro` = :ed, `` WHERE `tbllivro`.`idLivro` = :id";  
+        $codigoSql = "UPDATE `tbllivro` SET `tituloLivro` = :nm, `idiomaLivro` = :idi, `qntPagLivro` = :qnt, `editoraLivro` = :ed, `dataPubLivro` = :dt, `isbnLivro` = :isbn WHERE `tbllivro`.`idLivro` = :id";  
            
            try{
                
                $comandoSql = $conn->prepare($codigoSql);
 
-               $resultado = $comandoSql->execute(array('nm' => $_GET['nomeLivro'], 'idi' => $_GET['pontosLivro'], 'id' => $_GET['idLivro']
-               , 'qnt' => $_GET['qntPagLivro'],, 'ed' => $_GET['editoraLivro'],, 'dt' => $_GET['dataPubLivro'],
-               , 'isbn' => $_GET['isbnLivro'],));
+               $resultado = $comandoSql->execute(array('nm' => $_GET['tituloLivro'], 'idi' => $_GET['idiomaLivro'], 'id' => $_GET['idLivro'], 'qnt' => $_GET['qntPagLivro'], 'ed' => $_GET['editoraLivro'], 'dt' => $_GET['dataPubLivro'], 'isbn' => $_GET['isbnLivro']));
    
                if($resultado != 0){
                    echo $resultado;

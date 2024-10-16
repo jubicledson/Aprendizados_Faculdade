@@ -46,7 +46,8 @@
                                             <td><img src="'.$linha['urlProduto'].'"></td>
                                             <td><p class="card-text">'.$linha['descricaoProduto'].'</p></td>
                                             <td><p class="card-text">'.$linha['precoProduto'].'</p></td>
-                                            <td><a href="http://localhost/Aula/Conteudo_08_10_24/Loja/DeletaIdProduto.php?idProduto='.$linha['idProduto'].'"> Deletar </a></td>
+                                            <td><a href="http://localhost/desenvolvimento%20web%202/Conteudo%2016-10-24/Loja/DeletaIdProduto.php?idProduto='.$linha['idProduto'].'"> Deletar </a></td>
+                                            <td><a href="http://localhost/desenvolvimento%20web%202/Conteudo%2016-10-24/Loja/EditaIdProduto.php?idProduto='.$linha['idProduto'].'"> Editar </a></td>
                                         <tr>
                                     
                             ';
@@ -86,6 +87,7 @@
                                             <td><p class="card-text">'.$linha['descricaoProduto'].'</p></td>
                                             <td><p class="card-text"> R$ '.$linha['precoProduto'].'</p></td>
                                             <td><a href="http://localhost/Aula/Conteudo_08_10_24/Loja/DeletaIdProduto.php?idProduto='.$linha['idProduto'].'"> Deletar </a></td>
+                                            <td><a href="http://localhost/desenvolvimento%20web%202/Conteudo%2016-10-24/Loja/EditaIdProduto.php?idProduto='.$linha['idProduto'].'"> Editar </a></td>
                                         <tr>
                                     
                             ';
