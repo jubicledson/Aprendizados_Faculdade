@@ -54,6 +54,10 @@
             <input type="text" name="nomeReceita"><br><p>
             <label for="doseReceita">Dose do Medicamento:</label><br>
             <input type="text" name="doseReceita"><br><p>
+            <label for="dataAplicacao">Data de Aplicação:</label><br>
+            <input type="date" name="dataAplicacao"><br><p>
+            <label for="horaAplicacao">Hora de Aplicação:</label><br>
+            <input type="time" name="horaAplicacao"><br><p>
             <input type="hidden" name="idPaciente" value="<?php echo $idPacienteG; ?>">
             <input type="submit" name="btnCadastrar" value="Cadastar">
         </form>
